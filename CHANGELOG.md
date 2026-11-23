@@ -2,6 +2,8 @@
 
 ## À venir
 
+## 1.0.1 — 23/11/2026
+
 - Première version : la Phase 1 « Bien gérer les bases » avec les 6 exercices fondamentaux, tous leurs niveaux et les pages du livre.
 - Séances guidées de 40 min : échauffement du livre, circuit technique (3 tours en séance A, 2 en séance B), kettlebell 12 kg (goblet squat, swing) ou HIIT avec swings, étirements.
 - Chrono des pauses avec bips et vibration, écran qui reste allumé.
