@@ -15,6 +15,8 @@ export type Level = {
   extra?: { name: string; target: number; unit: Unit; goal: string }; // exercice à faire en plus au même niveau (suspension, relevés de jambes)
   optional?: boolean;
   pages: PageId[];
+  photo?: PageId; // photo découpée de l'exercice
+  extraPhoto?: PageId;
 };
 
 export type Exercise = {
@@ -44,6 +46,7 @@ export const EXERCISES: Exercise[] = [
     phase2: '10 tractions',
     levels: [
       {
+        photo: 'tr-australiennes', extraPhoto: 'tr-suspension',
         num: '1',
         name: 'Tractions australiennes',
         target: 15,
@@ -59,6 +62,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['tractions-intro', 'tractions-suspension-elastique'],
       },
       {
+        photo: 'tr-elastique',
         num: '2 (optionnel)',
         name: 'Tractions avec élastique',
         target: 6,
@@ -70,6 +74,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['tractions-suspension-elastique'],
       },
       {
+        photo: 'tr-negatives',
         num: '3',
         name: 'Tractions négatives',
         target: 6,
@@ -87,6 +92,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['tractions-negatives'],
       },
       {
+        photo: 'tr-tractions',
         num: '4',
         name: 'Tractions',
         target: 10,
@@ -114,6 +120,7 @@ export const EXERCISES: Exercise[] = [
     phase2: '20 pompes',
     levels: [
       {
+        photo: 'po-surelevees',
         num: '1',
         name: 'Pompes mains surélevées',
         target: 20,
@@ -127,6 +134,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['pompes-n1-n2'],
       },
       {
+        photo: 'po-genoux',
         num: '2',
         name: 'Pompes à genoux',
         target: 20,
@@ -137,6 +145,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['pompes-n1-n2'],
       },
       {
+        photo: 'po-negatives',
         num: '3',
         name: 'Pompes négatives',
         target: 12,
@@ -146,6 +155,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['pompes-n3-n4'],
       },
       {
+        photo: 'po-pompes',
         num: '4',
         name: 'Pompes',
         target: 20,
@@ -173,6 +183,7 @@ export const EXERCISES: Exercise[] = [
     stretchTip: 'Après le pistol squat : étirement « squat profond » (30 s en bas).',
     levels: [
       {
+        photo: 'pi-demi',
         num: '1',
         name: 'Demi-squats',
         target: 20,
@@ -186,6 +197,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['pistol-intro'],
       },
       {
+        photo: 'pi-profonds',
         num: '2',
         name: 'Squats profonds',
         target: 20,
@@ -200,6 +212,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['pistol-squats-profonds'],
       },
       {
+        photo: 'pi-banc',
         num: '3',
         name: 'Pistol squats assistés',
         target: 10,
@@ -215,6 +228,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['pistol-assistes'],
       },
       {
+        photo: 'pi-assistes',
         num: '4',
         name: 'Pistol squats',
         target: 6,
@@ -238,6 +252,7 @@ export const EXERCISES: Exercise[] = [
     phase2: '1 minute de gainage',
     levels: [
       {
+        photo: 'ga-genoux',
         num: '1',
         name: 'Gainage à genoux ou pieds écartés',
         target: 30,
@@ -250,6 +265,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['gainage-niveaux'],
       },
       {
+        photo: 'ga-gainage',
         num: '2',
         name: 'Gainage',
         target: 60,
@@ -279,6 +295,7 @@ export const EXERCISES: Exercise[] = [
     phase2: '12 dips',
     levels: [
       {
+        photo: 'di-pliees',
         num: '1',
         name: 'Dips sur support jambes pliées',
         target: 12,
@@ -291,6 +308,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['dips-intro'],
       },
       {
+        photo: 'di-tendues',
         num: '2',
         name: 'Dips sur support jambes tendues',
         target: 12,
@@ -300,6 +318,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['dips-n2-n4'],
       },
       {
+        photo: 'di-negatifs',
         num: '3',
         name: 'Dips négatifs',
         target: 8,
@@ -314,6 +333,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['dips-n2-n4'],
       },
       {
+        photo: 'di-negatifs',
         num: '4',
         name: 'Dips',
         target: 12,
@@ -339,6 +359,7 @@ export const EXERCISES: Exercise[] = [
     stretchTip: 'Entre deux essais : « toucher ses pieds assis » (3 s effort / 3 s relâchement).',
     levels: [
       {
+        photo: 'ls-soulever',
         num: '1',
         name: 'Vous soulever',
         target: 8,
@@ -353,6 +374,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['lsit-n1-n2'],
       },
       {
+        photo: 'ls-sol', extraPhoto: 'ls-releves',
         num: '2',
         name: 'Vous soulever au sol',
         target: 8,
@@ -366,6 +388,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['lsit-n1-n2'],
       },
       {
+        photo: 'ls-deplier',
         num: '3',
         name: 'Déplier les jambes',
         target: 5,
@@ -378,6 +401,7 @@ export const EXERCISES: Exercise[] = [
         pages: ['lsit-n3-n4'],
       },
       {
+        photo: 'ls-deplier',
         num: '4',
         name: 'L-sit',
         target: 10,
@@ -395,27 +419,27 @@ export const EXERCISES: Exercise[] = [
 export const exo = (id: ExoId) => EXERCISES.find((e) => e.id === id)!;
 
 // ——— Échauffement (livre p. 58) ———
-export type Move = { name: string; dose: string; how: string; sec?: number; page: PageId; variant?: string };
+export type Move = { name: string; dose: string; how: string; sec?: number; page: PageId; photo?: PageId; variant?: string };
 
 export const WARMUP_UPPER: Move[] = [
   { name: 'Moulinets poignets', dose: '10-15 / sens', how: 'Poings fermés, rotations des poignets vers l’intérieur puis l’extérieur. Avant-bras immobiles.', page: 'echauf-haut-1' },
   { name: 'Moulinets coudes', dose: '10-15 / sens', how: 'Bras pliés à 90°, rotations des avant-bras, coudes fixes. Sens horaire et antihoraire.', page: 'echauf-haut-1' },
   { name: 'Moulinets épaules', dose: '10-15 / sens', how: 'Bras relâchés, grands cercles le plus haut et le plus en arrière possible, vers l’avant puis l’arrière.', page: 'echauf-haut-1' },
   { name: 'Torsions de buste', dose: '10-15 / côté', how: 'Mains derrière la tête ou bras pliés devant, tournez le buste sans bouger les hanches.', page: 'echauf-haut-1' },
-  { name: 'Extensions de poignets', dose: '5 / angle', how: 'À quatre pattes, paumes au sol, balancez-vous doucement d’avant en arrière : mains vers l’avant, puis vers l’intérieur, puis vers l’extérieur.', page: 'echauf-haut-1' },
-  { name: 'Flexions de poignets', dose: '5 / angle', how: 'À quatre pattes, mains tournées vers vous, paumes vers le haut. Faible amplitude si c’est douloureux.', page: 'echauf-haut-1' },
-  { name: 'Exercice pull facile', dose: '10-15 rép.', how: 'Tractions australiennes très hautes (corps presque debout) : tirez la poitrine vers la barre.', page: 'echauf-haut-1' },
-  { name: 'Exercice push facile', dose: '15-20 rép.', how: 'Pompes contre un mur (ou à genoux si tu fais déjà des pompes surélevées basses). Variante : dips sur support.', page: 'echauf-haut-2' },
-  { name: 'Exercice abdos : montées de jambes', dose: '10-15 rép.', how: 'Allongé, jambes tendues, pieds décollés. Montez jusqu’à 90°, bas du dos collé au sol, redescendez sans poser les pieds. Contraction courte mais intense.', page: 'echauf-haut-2' },
+  { name: 'Extensions de poignets', photo: 'e-poignets', dose: '5 / angle', how: 'À quatre pattes, paumes au sol, balancez-vous doucement d’avant en arrière : mains vers l’avant, puis vers l’intérieur, puis vers l’extérieur.', page: 'echauf-haut-1' },
+  { name: 'Flexions de poignets', photo: 'e-poignets', dose: '5 / angle', how: 'À quatre pattes, mains tournées vers vous, paumes vers le haut. Faible amplitude si c’est douloureux.', page: 'echauf-haut-1' },
+  { name: 'Exercice pull facile', photo: 'e-pull', dose: '10-15 rép.', how: 'Tractions australiennes très hautes (corps presque debout) : tirez la poitrine vers la barre.', page: 'echauf-haut-1' },
+  { name: 'Exercice push facile', photo: 'e-push', dose: '15-20 rép.', how: 'Pompes contre un mur (ou à genoux si tu fais déjà des pompes surélevées basses). Variante : dips sur support.', page: 'echauf-haut-2' },
+  { name: 'Exercice abdos : montées de jambes', photo: 'e-jambes', dose: '10-15 rép.', how: 'Allongé, jambes tendues, pieds décollés. Montez jusqu’à 90°, bas du dos collé au sol, redescendez sans poser les pieds. Contraction courte mais intense.', page: 'echauf-haut-2' },
 ];
 
 export const WARMUP_LOWER: Move[] = [
-  { name: 'Montées de mollets', dose: '30 s', sec: 30, how: 'Montez sur la pointe des pieds jambes tendues, puis redescendez.', page: 'echauf-bas-1' },
-  { name: 'Montées d’orteils', dose: '30 s', sec: 30, how: 'Dos contre un mur, montez la pointe des pieds en gardant les talons proches du mur.', page: 'echauf-bas-1' },
-  { name: 'Squats', dose: '30 s', sec: 30, how: 'Descendez aussi bas que c’est confortable, dos droit, abdos engagés.', variant: 'assistés de la main sur un support', page: 'echauf-bas-1' },
-  { name: 'Fentes cosaques alternées', dose: '30 s', sec: 30, how: 'Fléchissez une jambe autant que possible, l’autre tendue, remontez et alternez.', variant: 'assistées de la main sur un support', page: 'echauf-bas-2' },
-  { name: 'Fentes alternées', dose: '30 s', sec: 30, how: 'Avancez une jambe, genou arrière qui frôle le sol, genou avant à 90°, alternez.', page: 'echauf-bas-2' },
-  { name: 'Montées de genoux allongé', dose: '30 s', sec: 30, how: 'Sur le dos, soulevez les hanches pour ramener les genoux vers le visage, sans poser les pieds.', page: 'echauf-bas-2' },
+  { name: 'Montées de mollets', photo: 'e-mollets', dose: '30 s', sec: 30, how: 'Montez sur la pointe des pieds jambes tendues, puis redescendez.', page: 'echauf-bas-1' },
+  { name: 'Montées d’orteils', photo: 'e-mollets', dose: '30 s', sec: 30, how: 'Dos contre un mur, montez la pointe des pieds en gardant les talons proches du mur.', page: 'echauf-bas-1' },
+  { name: 'Squats', photo: 'e-squats', dose: '30 s', sec: 30, how: 'Descendez aussi bas que c’est confortable, dos droit, abdos engagés.', variant: 'assistés de la main sur un support', page: 'echauf-bas-1' },
+  { name: 'Fentes cosaques alternées', photo: 'e-cosaques', dose: '30 s', sec: 30, how: 'Fléchissez une jambe autant que possible, l’autre tendue, remontez et alternez.', variant: 'assistées de la main sur un support', page: 'echauf-bas-2' },
+  { name: 'Fentes alternées', photo: 'e-fentes', dose: '30 s', sec: 30, how: 'Avancez une jambe, genou arrière qui frôle le sol, genou avant à 90°, alternez.', page: 'echauf-bas-2' },
+  { name: 'Montées de genoux allongé', photo: 'e-genoux', dose: '30 s', sec: 30, how: 'Sur le dos, soulevez les hanches pour ramener les genoux vers le visage, sans poser les pieds.', page: 'echauf-bas-2' },
 ];
 
 export const WARMUP_NOTE =
@@ -423,31 +447,31 @@ export const WARMUP_NOTE =
 
 // ——— Étirements (livre p. 62-63) ———
 export const STRETCH_PHASE1: Move[] = [
-  { name: 'Toucher ses pieds assis', dose: '×4', sec: 30, how: 'Assis, jambes tendues, pieds joints. Mains vers les pieds : 3 s d’effort, 3 s de relâchement, 3-4 fois d’affilée.', page: 'etir-phase1' },
-  { name: 'Squat profond', dose: '30 s', sec: 30, how: 'Descendez fessiers près des talons, talons au sol (accroché à un support ou kettlebell en contrepoids). 30 s en bas, abdos et fessiers contractés.', page: 'etir-phase1' },
-  { name: 'Relâchement des fléchisseurs (gauche)', dose: '20 s', sec: 20, how: 'Assis, appui sur une main derrière, jambe opposée pliée devant, l’autre glisse en arrière. Poussez le bassin vers l’avant sans cambrer.', page: 'etir-phase1' },
-  { name: 'Relâchement des fléchisseurs (droite)', dose: '20 s', sec: 20, how: 'Même chose de l’autre côté.', page: 'etir-phase1' },
+  { name: 'Toucher ses pieds assis', photo: 's-pieds', dose: '×4', sec: 30, how: 'Assis, jambes tendues, pieds joints. Mains vers les pieds : 3 s d’effort, 3 s de relâchement, 3-4 fois d’affilée.', page: 'etir-phase1' },
+  { name: 'Squat profond', photo: 's-squat', dose: '30 s', sec: 30, how: 'Descendez fessiers près des talons, talons au sol (accroché à un support ou kettlebell en contrepoids). 30 s en bas, abdos et fessiers contractés.', page: 'etir-phase1' },
+  { name: 'Relâchement des fléchisseurs (gauche)', photo: 's-flechisseurs', dose: '20 s', sec: 20, how: 'Assis, appui sur une main derrière, jambe opposée pliée devant, l’autre glisse en arrière. Poussez le bassin vers l’avant sans cambrer.', page: 'etir-phase1' },
+  { name: 'Relâchement des fléchisseurs (droite)', photo: 's-flechisseurs', dose: '20 s', sec: 20, how: 'Même chose de l’autre côté.', page: 'etir-phase1' },
 ];
 
 export const STRETCH_FEELGOOD: Move[] = [
-  { name: 'Pectoraux', dose: '10 s / côté', how: 'Main contre une barre verticale, bras tendu, tournez le buste à l’opposé. Main plus haute puis plus basse que l’épaule.', page: 'etir-toutes-1' },
-  { name: 'Dorsaux', dose: '10 s', how: 'Doigts entrelacés, bras tendus devant, éloignez les mains en arrondissant le dos.', page: 'etir-toutes-1' },
-  { name: 'Obliques', dose: '10 s / côté', how: 'De profil au support, mains comme pour le drapeau, inclinez le buste et éloignez le pied extérieur.', page: 'etir-toutes-1' },
-  { name: 'Cou', dose: '10 s / côté', how: 'Main sur la clavicule opposée, tête vers l’arrière et sur le côté jusqu’à une légère tension.', page: 'etir-toutes-2' },
-  { name: 'Abdos : la vache', dose: '10 s', how: 'À quatre pattes, creusez le dos au maximum en engageant les abdos.', page: 'etir-toutes-2' },
-  { name: 'Fente avec torsion', dose: '10 s / côté', how: 'En fente, main opposée près du pied avant, l’autre bras va chercher le plafond, regard vers la main.', page: 'etir-toutes-2' },
+  { name: 'Pectoraux', photo: 's-pectoraux', dose: '10 s / côté', how: 'Main contre une barre verticale, bras tendu, tournez le buste à l’opposé. Main plus haute puis plus basse que l’épaule.', page: 'etir-toutes-1' },
+  { name: 'Dorsaux', photo: 's-dorsaux', dose: '10 s', how: 'Doigts entrelacés, bras tendus devant, éloignez les mains en arrondissant le dos.', page: 'etir-toutes-1' },
+  { name: 'Obliques', photo: 's-obliques', dose: '10 s / côté', how: 'De profil au support, mains comme pour le drapeau, inclinez le buste et éloignez le pied extérieur.', page: 'etir-toutes-1' },
+  { name: 'Cou', photo: 's-cou', dose: '10 s / côté', how: 'Main sur la clavicule opposée, tête vers l’arrière et sur le côté jusqu’à une légère tension.', page: 'etir-toutes-2' },
+  { name: 'Abdos : la vache', photo: 's-vache', dose: '10 s', how: 'À quatre pattes, creusez le dos au maximum en engageant les abdos.', page: 'etir-toutes-2' },
+  { name: 'Fente avec torsion', photo: 's-fente', dose: '10 s / côté', how: 'En fente, main opposée près du pied avant, l’autre bras va chercher le plafond, regard vers la main.', page: 'etir-toutes-2' },
 ];
 
 // ——— Circuit HIIT (livre p. 94) : jumping jacks remplacés par des swings kettlebell ———
 export const HIIT: Move[] = [
-  { name: 'Burpees', dose: '×10', how: 'Squat, mains au sol, pieds en arrière, une pompe, pieds sous les hanches, saut bras levés.', variant: 'sans pompe ou avec pompe à genoux', page: 'hiit-1' },
-  { name: 'Bateau', dose: '30 s', sec: 30, how: 'Assis, jambes tendues relevées, buste descendu : pieds et épaules à quelques centimètres du sol.', variant: 'jambes pliées', page: 'hiit-1' },
+  { name: 'Burpees', photo: 'h-burpee', dose: '×10', how: 'Squat, mains au sol, pieds en arrière, une pompe, pieds sous les hanches, saut bras levés.', variant: 'sans pompe ou avec pompe à genoux', page: 'hiit-1' },
+  { name: 'Bateau', photo: 'h-bateau', dose: '30 s', sec: 30, how: 'Assis, jambes tendues relevées, buste descendu : pieds et épaules à quelques centimètres du sol.', variant: 'jambes pliées', page: 'hiit-1' },
   { name: 'Swings kettlebell 12 kg', dose: '×15', how: 'Remplace les jumping jacks. Voir la fiche kettlebell : hanches qui poussent, bras relâchés, cloche à hauteur de poitrine.', page: 'hiit-1' },
-  { name: 'Twist russe', dose: '×20', how: 'Assis, jambes légèrement relevées, buste incliné, tournez le buste à gauche puis à droite avec les mains.', variant: 'jambes pliées', page: 'hiit-1' },
-  { name: 'Gainage côté (gauche)', dose: '30 s', sec: 30, how: 'Appui sur l’avant-bras, jambes tendues, corps aligné, abdos et fessiers contractés.', variant: 'genou au sol', page: 'hiit-2' },
-  { name: 'Gainage côté (droite)', dose: '30 s', sec: 30, how: 'Même chose de l’autre côté.', variant: 'genou au sol', page: 'hiit-2' },
-  { name: 'Mountain climbers', dose: '×30', how: 'Planche bras tendus, ramenez alternativement les genoux vers la poitrine, rythme soutenu.', variant: 'mains surélevées', page: 'hiit-2' },
-  { name: 'Sit-ups en chaise', dose: '×15', how: 'Sur le dos, jambes à 90° pieds relevés. Contractez avant de bouger, mains pas derrière la tête, bas du dos collé, visez le plafond avec la poitrine.', variant: 'crunch', page: 'hiit-2' },
+  { name: 'Twist russe', photo: 'h-twist', dose: '×20', how: 'Assis, jambes légèrement relevées, buste incliné, tournez le buste à gauche puis à droite avec les mains.', variant: 'jambes pliées', page: 'hiit-1' },
+  { name: 'Gainage côté (gauche)', photo: 'h-gainage-cote', dose: '30 s', sec: 30, how: 'Appui sur l’avant-bras, jambes tendues, corps aligné, abdos et fessiers contractés.', variant: 'genou au sol', page: 'hiit-2' },
+  { name: 'Gainage côté (droite)', photo: 'h-gainage-cote', dose: '30 s', sec: 30, how: 'Même chose de l’autre côté.', variant: 'genou au sol', page: 'hiit-2' },
+  { name: 'Mountain climbers', photo: 'h-climber', dose: '×30', how: 'Planche bras tendus, ramenez alternativement les genoux vers la poitrine, rythme soutenu.', variant: 'mains surélevées', page: 'hiit-2' },
+  { name: 'Sit-ups en chaise', photo: 'h-situp', dose: '×15', how: 'Sur le dos, jambes à 90° pieds relevés. Contractez avant de bouger, mains pas derrière la tête, bas du dos collé, visez le plafond avec la poitrine.', variant: 'crunch', page: 'hiit-2' },
 ];
 
 // ——— Kettlebell 12 kg (ajout, pas dans le livre) ———

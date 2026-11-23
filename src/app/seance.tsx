@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Bullets, Button, Card, H2, P, PageImage } from '@/components/ui';
+import { Bullets, Button, Card, H2, P, PageImage, Photo } from '@/components/ui';
 import { C } from '@/constants/theme';
 import { EXERCISES, exo, type ExoId, type SessionType } from '@/data/programme';
 import { beep, preloadSounds, say, speakable } from '@/lib/sound';
@@ -307,7 +307,7 @@ function MoveStep({ step, cd }: { step: Extract<Step, { kind: 'move' }>; cd: Ret
           )}
         </Card>
       ) : null}
-      <PageImage id={m.page} height={420} whole />
+      {m.photo ? <Photo id={m.photo} page={m.page} /> : <PageImage id={m.page} height={420} whole />}
     </>
   );
 }
@@ -370,7 +370,13 @@ function ExoStep({
           </P>
         ) : null}
       </View>
-      <PageImage id={L.pages[0]} height={420} whole />
+      {L.photo ? <Photo id={L.photo} page={L.pages[0]} /> : <PageImage id={L.pages[0]} height={420} whole />}
+      {L.extraPhoto && L.extra ? (
+        <>
+          <Text style={{ color: C.brownSoft, fontWeight: '800' }}>{L.extra.name.toUpperCase()}</Text>
+          <Photo id={L.extraPhoto} maxHeight={260} />
+        </>
+      ) : null}
       <Bullets items={L.how} />
       {L.tips?.map((t) => (
         <P key={t} dim>

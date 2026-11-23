@@ -2,7 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useLocalSearchParams } from 'expo-router';
 import { Alert, Text, View } from 'react-native';
 
-import { Bullets, Button, Card, H2, P, PageImage, PageStrip, Screen } from '@/components/ui';
+import { Bullets, Button, Card, H2, P, PageImage, PageStrip, Photo, Screen } from '@/components/ui';
 import { C } from '@/constants/theme';
 import { exo, type ExoId } from '@/data/programme';
 import { bestKey, useStore } from '@/lib/store';
@@ -55,7 +55,8 @@ export default function ExerciceScreen() {
               ) : null}
             </View>
             <H2>{L.name}</H2>
-            <PageImage id={L.pages[0]} height={380} whole />
+            {L.photo ? <Photo id={L.photo} page={L.pages[0]} /> : <PageImage id={L.pages[0]} height={380} whole />}
+            {L.extraPhoto ? <Photo id={L.extraPhoto} maxHeight={260} /> : null}
             <Bullets items={L.how} />
             {L.tips?.map((t) => (
               <P key={t} dim>

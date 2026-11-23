@@ -1,7 +1,7 @@
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 
-import { Bullets, Card, H2, P, PageImage, PageStrip, Screen } from '@/components/ui';
+import { Bullets, Card, H2, P, PageImage, PageStrip, Photo, Screen } from '@/components/ui';
 import { C } from '@/constants/theme';
 import type { PageId } from '@/data/livre';
 import { HIIT, KB_MOVES, RULES, STRETCH_FEELGOOD, STRETCH_PHASE1, WARMUP_LOWER, WARMUP_NOTE, WARMUP_UPPER, type Move } from '@/data/programme';
@@ -18,6 +18,7 @@ function MoveList({ list }: { list: Move[] }) {
             </Text>
             <Text style={{ color: C.brown, fontWeight: '800' }}>{m.dose}</Text>
           </View>
+          {m.photo ? <Photo id={m.photo} maxHeight={240} /> : null}
           <P>{m.how}</P>
           {m.variant ? <P dim>Variante débutant : {m.variant}</P> : null}
         </Card>

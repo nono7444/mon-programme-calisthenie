@@ -5,7 +5,7 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View, type StyleProp, t
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { C, R } from '@/constants/theme';
-import { PAGES, type PageId } from '@/data/livre';
+import { PAGES, PHOTO_RATIO, type PageId } from '@/data/livre';
 
 export function Screen({ children, title, subtitle, back }: { children?: ReactNode; title?: string; subtitle?: string; back?: boolean }) {
   const insets = useSafeAreaInsets();
@@ -117,3 +117,21 @@ export const s = StyleSheet.create({
   chip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: R.chip, borderWidth: 1.5, borderColor: C.line, backgroundColor: C.card },
   zoom: { position: 'absolute', right: 8, bottom: 8, flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: 'rgba(46,30,26,0.75)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 999 },
 });
+
+/** Photo d'exercice découpée (proportions respectées) + lien vers la page complète du livre. */
+export function Photo({ id, page, maxHeight = 360 }: { id: PageId; page?: PageId; maxHeight?: number }) {
+  const ratio = PHOTO_RATIO[id] ?? 1;
+  return (
+    <View style={{ gap: 6 }}>
+      <Pressable onPress={() => router.push({ pathname: '/page', params: { id } })} style={{ borderRadius: 14, overflow: 'hidden', backgroundColor: C.white, alignItems: 'center' }}>
+        <Image source={PAGES[id]} style={{ width: '100%', aspectRatio: Math.max(ratio, 0.55), maxHeight }} resizeMode="contain" />
+      </Pressable>
+      {page ? (
+        <Pressable onPress={() => router.push({ pathname: '/page', params: { id: page } })} hitSlop={8} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-end' }}>
+          <Ionicons name="book-outline" size={14} color={C.brownSoft} />
+          <Text style={{ color: C.brownSoft, fontWeight: '700', fontSize: 13 }}>Voir la page du livre</Text>
+        </Pressable>
+      ) : null}
+    </View>
+  );
+}
