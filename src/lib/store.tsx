@@ -12,6 +12,7 @@ export type State = {
   days: 3 | 4 | 5;
   restExo: 45 | 60;
   sound: boolean;
+  voice: boolean;
   history: Done[];
   /** Records au premier tour, par exercice et par niveau (« pompes:1 » → 12) */
   best: Record<string, number>;
@@ -25,6 +26,7 @@ const initial: State = {
   days: 3,
   restExo: 45,
   sound: true,
+  voice: true,
   history: [],
   best: {},
 };

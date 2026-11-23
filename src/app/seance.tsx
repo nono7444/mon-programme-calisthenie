@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Bullets, Button, Card, H2, P, PageImage } from '@/components/ui';
 import { C } from '@/constants/theme';
 import { EXERCISES, exo, type ExoId, type SessionType } from '@/data/programme';
-import { beep, preloadSounds } from '@/lib/sound';
+import { beep, preloadSounds, say, speakable } from '@/lib/sound';
 import { BLOCK_NAMES, buildSession, type Step } from '@/lib/session';
 import { bestKey, useStore } from '@/lib/store';
 
@@ -92,6 +92,16 @@ export default function Seance() {
 
   // Pause : le chrono démarre tout seul. Mouvement chronométré : au toucher de « Démarrer ».
   useEffect(() => {
+    // Annonce à voix haute de chaque étape
+    const v = state.voice;
+    if (!step) say('Séance terminée. Bravo !', v);
+    else if (step.kind === 'rest') say(`Pause, ${step.sec} secondes. ${step.label.replace(/·/g, '.')}`, v);
+    else if (step.kind === 'move') say(`${step.move.name}. ${speakable(step.move.dose)}`, v);
+    else if (step.kind === 'kb') say(`${step.move.name}, série ${step.set}. ${step.move.reps} répétitions`, v);
+    else if (step.kind === 'exo') {
+      const L = exo(step.exo).levels[step.level];
+      say(`Tour ${step.round}. ${L.name}. Objectif : ${L.target} ${L.unit === 'sec' ? 'secondes' : 'répétitions'}${L.perSide ? ' de chaque côté' : ''}`, v);
+    }
     if (step?.kind === 'rest') cd.start(step.sec);
     if (step?.kind === 'exo') {
       const prev = results[`${step.exo}:${step.round - 1}`];
@@ -113,6 +123,7 @@ export default function Seance() {
     if (watchSec >= L.target && !lastTarget.current) {
       lastTarget.current = true;
       beep('fin', state.sound);
+      say('Objectif atteint !', state.voice);
     }
   }, [watchSec]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -133,6 +144,14 @@ export default function Seance() {
       return { ...s, best, history: [...s.history, { date: new Date().toISOString(), type: t, min, results: res }].slice(-200) };
     });
   }, [step]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const said10 = useRef(-1);
+  useEffect(() => {
+    if (step?.kind === 'rest' && cd.running && cd.left === 10 && said10.current !== idx && step.sec > 15) {
+      said10.current = idx;
+      say('Encore 10 secondes', state.voice);
+    }
+  });
 
   const quit = () =>
     Alert.alert('Arrêter la séance ?', 'Ta progression de cette séance ne sera pas enregistrée.', [

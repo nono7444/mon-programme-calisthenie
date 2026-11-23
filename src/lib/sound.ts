@@ -37,3 +37,24 @@ export function beep(kind: 'bip' | 'fin', soundOn: boolean) {
 export function preloadSounds() {
   load();
 }
+
+// ——— Voix (synthèse vocale du téléphone, en français) ———
+/** Rend une dose lisible à voix haute : « 10-15 / sens » → « 10 à 15 par sens ». */
+export function speakable(t: string) {
+  return t
+    .replace(/(\d+)-(\d+)/g, '$1 à $2')
+    .replace(/×\s*/g, '')
+    .replace(/\s*\/\s*/g, ' par ')
+    .replace(/rép\./g, 'répétitions')
+    .replace(/(\d+) s\b/g, '$1 secondes');
+}
+
+export function say(text: string, voiceOn: boolean) {
+  if (!voiceOn) return;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const Speech = require('expo-speech') as typeof import('expo-speech');
+    Speech.stop();
+    Speech.speak(text, { language: 'fr-FR', rate: Platform.OS === 'ios' ? 0.52 : 1.0 });
+  } catch {}
+}

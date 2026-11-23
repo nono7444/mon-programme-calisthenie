@@ -115,7 +115,10 @@ jobs:
         run: |
           awk '/^## À venir/{f=1;next} /^## /{f=0} f' CHANGELOG.md | sed '/^$/d' > notes.md
           [ -s notes.md ] || echo "Mise à jour" > notes.md
-          { echo "## Calisthénie 1.0.${{ github.run_number }}"; echo; cat notes.md; echo; echo "---"; echo "iPhone : télécharge calisthenie-unsigned.ipa (appli GitHub, connecté) puis ouvre-la avec FlareStore ou SideStore."; echo "Android : installe calisthenie-android.apk."; } > body.md
+          { echo "## Calisthénie 1.0.${{ github.run_number }}"; echo; cat notes.md; echo; echo "---"; echo "iPhone : source FlareStore https://github.com/${{ github.repository }}/releases/latest/download/altstore.json (mises à jour automatiques), ou calisthenie-unsigned.ipa avec SideStore."; echo "Android : https://github.com/${{ github.repository }}/releases/latest/download/calisthenie-android.apk"; } > body.md
+      - name: Source FlareStore / AltStore
+        if: ${{ needs.ios.result == 'success' }}
+        run: node scripts/make-source.mjs "1.0.${{ github.run_number }}" "build-${{ github.run_number }}" calisthenie-unsigned.ipa
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
@@ -127,3 +130,14 @@ jobs:
           files: |
             calisthenie-unsigned.ipa
             calisthenie-android.apk
+            altstore.json
+      - name: Range les notes sous le numéro de version dans CHANGELOG.md
+        run: |
+          grep -q '^## À venir' CHANGELOG.md || exit 0
+          [ -s notes.md ] && ! grep -qx 'Mise à jour' notes.md || exit 0
+          sed -i "s|^## À venir$|## À venir\n\n## 1.0.${{ github.run_number }} — $(date +%d/%m/%Y)|" CHANGELOG.md
+          git config user.name "calisthenie-bot"
+          git config user.email "calisthenie-bot@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "Notes de version 1.0.${{ github.run_number }} [skip ci]"
+          git pull --rebase -q origin main && git push -q origin HEAD:main

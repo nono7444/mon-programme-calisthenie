@@ -44,6 +44,15 @@ export default function Reglages() {
         </View>
       </Card>
       <Card>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <View style={{ flex: 1 }}>
+            <H2>Voix</H2>
+            <P dim>Annonce chaque exercice, l’objectif et les pauses (« Pause, 45 secondes. Ensuite : pompes »).</P>
+          </View>
+          <Switch value={state.voice} onValueChange={(v) => update((s) => ({ ...s, voice: v }))} trackColor={{ true: C.brown }} />
+        </View>
+      </Card>
+      <Card>
         <H2>Historique</H2>
         <P dim>{state.history.length ? `${state.history.length} séance${state.history.length > 1 ? 's' : ''} terminée${state.history.length > 1 ? 's' : ''}` : 'Aucune séance pour l’instant.'}</P>
         {state.history

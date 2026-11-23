@@ -15,6 +15,7 @@ export default function TabsLayout() {
       }}>
       <Tabs.Screen name="index" options={{ title: 'Accueil', tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" color={color} size={size} /> }} />
       <Tabs.Screen name="exercices" options={{ title: 'Le livre', tabBarIcon: ({ color, size }) => <Ionicons name="book-outline" color={color} size={size} /> }} />
+      <Tabs.Screen name="stats" options={{ title: 'Stats', tabBarIcon: ({ color, size }) => <Ionicons name="stats-chart-outline" color={color} size={size} /> }} />
       <Tabs.Screen name="reglages" options={{ title: 'Réglages', tabBarIcon: ({ color, size }) => <Ionicons name="settings-outline" color={color} size={size} /> }} />
     </Tabs>
   );
